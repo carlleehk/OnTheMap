@@ -17,4 +17,13 @@ struct userData {
         userURL = dictionary["link"] as? String
     }
     
+    static func userInfo(results:[[String: Any]]) -> [userData]{
+        var data = [userData]()
+        for result in results{
+            data.append(userData(dictionary: result))
+        
+        }
+        return data
+    }
+    
 }

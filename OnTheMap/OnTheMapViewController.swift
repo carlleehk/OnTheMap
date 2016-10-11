@@ -13,7 +13,6 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
     
     @IBOutlet weak var map: MKMapView!
     override func viewDidLoad() {
-    
         super.viewDidLoad()
         let locations = locationData()
         var annotations = [MKPointAnnotation]()

@@ -52,7 +52,7 @@ extension UdacityClient{
         }
     }
     
-    private func getUserData(completionHandlerForID: @escaping (_ success: Bool, _ userData: [String: Any]?, _ error: String?) -> Void){
+    private func getUserData(completionHandlerForID: @escaping (_ success: Bool, _ userData: [userData]?, _ error: String?) -> Void){
         
         var mutableMethod: String = Methods.users
         mutableMethod = subsituteForKey(method: mutableMethod, key: "userID", value: self.accountKeys)!
@@ -61,17 +61,19 @@ extension UdacityClient{
                 print(error)
                 completionHandlerForID(false, nil, "Login Failed (user Data)")
             } else {
-                guard let user = result!["user"] as? [String: Any] else{
+                guard let user = result!["user"] as? [String: AnyObject] else{
                     print(error)
                     return
                 }
                 
-                guard let firstName = user["first_name"], let lastName = user["last_name"], let userURL = user["linkedin_url"] else{
+                /*guard let firstName = user["first_name"], let lastName = user["last_name"], let userURL = user["linkedin_url"] else{
                     print(error)
                     return
-                }
+                }*/
                 
-                completionHandlerForID(true, user, nil)
+                let data = userData.userInfo(results: [user])
+                
+                completionHandlerForID(true, data, nil)
             }
         }
     }
