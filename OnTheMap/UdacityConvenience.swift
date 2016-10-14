@@ -31,7 +31,7 @@ extension UdacityClient{
     
     private func getSessionID(username: String, password: String, completionHandlerForID: @escaping (_ success: Bool, _ sessionID: String?, _ error: String?) -> Void){
         let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
-        taskForPostMethod(method: Methods.session, jsonBody: jsonBody) { (result, error) in
+        taskForPostMethod(username: username, password: password, method: Methods.session, jsonBody: jsonBody) { (result, error) in
             if let error = error {
                 print(error)
                 completionHandlerForID(false, nil, "Login Failed (session ID)")
@@ -72,7 +72,7 @@ extension UdacityClient{
                 }*/
                 
                 let data = userData.userInfo(results: [user])
-                
+                userData.userInfo = data
                 completionHandlerForID(true, data, nil)
             }
         }

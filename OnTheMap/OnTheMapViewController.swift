@@ -10,10 +10,12 @@ import UIKit
 import MapKit
 
 class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
-    
     @IBOutlet weak var map: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let datas = userData.userInfo[0]
+        print(datas.userURL?.description)
+        
         let locations = locationData()
         var annotations = [MKPointAnnotation]()
         for dictionary in locations {
@@ -123,6 +125,11 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
         ]
     }
 
+    @IBAction func findLocation(_ sender: AnyObject) {
+        let control = storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
+        present(control, animated: true, completion: nil)
+        
+    }
     /*
     // MARK: - Navigation
 

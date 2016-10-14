@@ -10,6 +10,7 @@ struct userData {
     let userFirstName: String
     let userLastName: String
     let userURL: String?
+    static var userInfo: [userData] = []
     
     init(dictionary: [String:Any]) {
         userFirstName = dictionary["first_name"] as! String

@@ -12,20 +12,19 @@ class UdacityClient: NSObject{
     
     var sessionIDs: String = ""
     var accountKeys: String = ""
-    
     var session = URLSession.shared
     
     override init() {
         super.init()
     }
     
-    func taskForPostMethod(method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+    func taskForPostMethod(username: String, password: String, method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
         let request = NSMutableURLRequest(url: udacityURL(withPathExtension: method) as URL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"udacity\": {\"username\": \"carllee.hk@gmail.com\", \"password\": \"ifUMRtNsAQcRG8Muaw\"}}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             guard (error == nil) else{
@@ -34,7 +33,7 @@ class UdacityClient: NSObject{
             }
             
             guard let statcode = (response as? HTTPURLResponse)?.statusCode, statcode >= 200 && statcode <= 299 else{
-                print("Your request returned a status code other than 2XX.")
+                print("Your request returned a status code other than 2XX. ")
                 return
             }
             
