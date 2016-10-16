@@ -218,6 +218,9 @@
                             <constraint firstItem="zag-9U-XQf" firstAttribute="leading" secondItem="jbm-jB-bQ4" secondAttribute="leading" id="zOX-ug-G27"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="location" destination="hUJ-pw-zrP" id="GIh-t1-jsc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHx-B3-BLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -235,10 +238,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="h4B-n4-5E6">
-                                <frame key="frameInset" minY="178" width="375" height="489"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D0w-99-adU">
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -252,15 +251,23 @@
                                     <action selector="cancel:" destination="EYq-Z9-KHo" eventType="touchUpInside" id="spV-M4-JS1"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="h4B-n4-5E6"/>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="h4B-n4-5E6" firstAttribute="centerX" secondItem="D0w-99-adU" secondAttribute="centerX" id="GIi-B6-tlj"/>
+                            <constraint firstItem="h4B-n4-5E6" firstAttribute="top" secondItem="D0w-99-adU" secondAttribute="bottom" constant="60" id="HeZ-C8-4R3"/>
                             <constraint firstItem="UqW-I4-3ym" firstAttribute="trailing" secondItem="8yc-8S-ZJv" secondAttribute="trailingMargin" id="RIn-4Q-sr0"/>
+                            <constraint firstItem="h4B-n4-5E6" firstAttribute="bottom" secondItem="iPT-Hc-Nj8" secondAttribute="top" id="cdJ-at-HUr"/>
+                            <constraint firstItem="h4B-n4-5E6" firstAttribute="leading" secondItem="8yc-8S-ZJv" secondAttribute="leading" id="cvx-Mo-dJ4"/>
                             <constraint firstItem="D0w-99-adU" firstAttribute="centerX" secondItem="8yc-8S-ZJv" secondAttribute="centerX" id="e2G-k6-lER"/>
                             <constraint firstItem="UqW-I4-3ym" firstAttribute="top" secondItem="HbS-HB-ZMA" secondAttribute="bottom" id="rGG-dC-ULV"/>
                             <constraint firstItem="D0w-99-adU" firstAttribute="top" secondItem="HbS-HB-ZMA" secondAttribute="bottom" constant="66" id="v4T-vA-IG0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="h4B-n4-5E6" id="Zdt-3f-XiI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwJ-Ig-21N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -296,7 +303,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDN-jj-4ep" id="FtW-27-VHx">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
