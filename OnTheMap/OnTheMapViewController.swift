@@ -11,21 +11,62 @@ import MapKit
 
 class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
     @IBOutlet weak var map: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        func locationData() -> [[String: Any]]{
+            var info: [String:Any]  = [:]
+            var infos = [info]
+            let data = selectUserInfo.selectuserInfo
+            for datas in data{
+                info["firstName"] = datas.firstName
+                info["lastName"] = datas.lastName
+                info["latitude"] = datas.latitude
+                info["longitude"] = datas.longitude
+                info["mapString"] = datas.mapString
+                info["mediaURL"] = datas.mediaURL
+                infos += [info]
+                
+            }
+            infos.remove(at: 0)
+            print("thee inf: \(infos)")
+            return infos
+        }
+
         ParseClient.sharedInstance().getStudentsData { (data, error) in
-            performUIUpdateOnMain {
+            //performUIUpdateOnMain {
                 if error == nil{
-                    print("the data is: \(selectUserInfo.selectuserInfo)")
+                    
+                    let locations = locationData()
+                    print("the data is: \(locations)")
+                    var annotations = [MKPointAnnotation]()
+                    for dictionary in locations {
+                        let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
+                        let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+                        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                        let first = dictionary["firstName"] as! String
+                        let last = dictionary["lastName"] as! String
+                        let mediaURL = dictionary["mediaURL"] as! String
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = coordinate
+                        annotation.title = "\(first) \(last)"
+                        annotation.subtitle = mediaURL
+                        annotations.append(annotation)
+                    }
+                    
+                    self.map.addAnnotations(annotations)
+                    
+                    
+                    
                 } else{
                     print("there is an error")
                 }
-
+            //}
             }
         }
         
-        let locations = locationData()
+        /*let locations = locationData()
         var annotations = [MKPointAnnotation]()
         for dictionary in locations {
             let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
@@ -44,7 +85,7 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
         self.map.addAnnotations(annotations)
 
         // Do any additional setup after loading the view.
-    }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -82,9 +123,11 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
         }
 
     }
-
     
-    func locationData() -> [[String: Any]]{
+        
+
+
+   /* func locationData() -> [[String: Any]]{
         return  [
             [
                 "createdAt" : "2015-02-24T22:27:14.456Z",
@@ -132,7 +175,7 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
                 "updatedAt" : "2015-03-13T03:37:58.389Z"
             ]
         ]
-    }
+    }*/
 
     @IBAction func findLocation(_ sender: AnyObject) {
         let control = storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController

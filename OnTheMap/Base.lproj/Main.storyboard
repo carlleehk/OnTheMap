@@ -202,11 +202,7 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="fjb-eX-PMI"/>
-                            <barButtonItem image="pin" id="O1j-SG-MbU">
-                                <connections>
-                                    <action selector="findLocation:" destination="0qt-Jl-eMH" id="v39-RC-SDj"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem image="pin" id="O1j-SG-MbU"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -353,7 +349,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDN-jj-4ep" id="FtW-27-VHx">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

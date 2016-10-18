@@ -16,22 +16,22 @@ struct individualInfo{
 
 struct selectUserInfo{
     
-    var firstName: String?
-    var lastName: String?
-    var lat: Double?
-    var long: Double?
-    var location: String?
-    var url: String?
+    var firstName: String
+    var lastName: String
+    var latitude: Double
+    var longitude: Double
+    var mapString: String
+    var mediaURL: String
     
     static var selectuserInfo: [selectUserInfo] = []
     
     init(dictionary: [String:Any]){
-        firstName = dictionary["firstname"] as? String
-        lastName = dictionary["lastname"] as? String
-        lat = dictionary["latitude"] as? Double
-        long = dictionary["longitude"] as? Double
-        location = dictionary["mapString"] as? String
-        url = dictionary["mediaURL"] as? String
+        firstName = dictionary["firstName"] as! String
+        lastName = dictionary["lastName"] as! String
+        latitude = dictionary["latitude"] as! Double
+        longitude = dictionary["longitude"] as! Double
+        mapString = dictionary["mapString"] as! String
+        mediaURL = dictionary["mediaURL"] as! String
     }
     
     static func selectUserInfos(results:[[String: Any]]) -> [selectUserInfo]{

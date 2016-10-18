@@ -13,7 +13,7 @@ extension ParseClient{
     
     func getStudentsData(completionHandlerForGetStudentsData:@escaping (_ result:[selectUserInfo]?, _ error:NSError?) -> Void){
         
-        let parameters = [ParameterKeys.limit: "4", ParameterKeys.skip: "100"]
+        let parameters = [ParameterKeys.limit: "4", ParameterKeys.skip: "1000"]
         taskForGetMethod(parameters: parameters as [String : AnyObject]) { (results, error) in
             if let error = error{
                 completionHandlerForGetStudentsData(nil, error)
