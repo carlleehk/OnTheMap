@@ -50,6 +50,9 @@
                                 <state key="normal" title="Don't have an account? Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xHT-i9-6gS"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="MOH-wF-DlO">
                                 <constraints>
@@ -90,6 +93,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="Czu-bk-VOg">
+            <objects>
+                <viewController storyboardIdentifier="SignUpViewController" id="KAu-C7-bxg" customClass="SignUpViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="luh-FR-G69"/>
+                        <viewControllerLayoutGuide type="bottom" id="2yB-qj-WfP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4ct-K9-G03">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2EJ-kO-HiJ">
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6AF-d0-Mmq">
+                                <items>
+                                    <navigationItem id="vcc-tl-laZ">
+                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="QlM-XP-G9r">
+                                            <connections>
+                                                <action selector="cancel:" destination="KAu-C7-bxg" id="Hzv-Gw-PZb"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2EJ-kO-HiJ" firstAttribute="top" secondItem="6AF-d0-Mmq" secondAttribute="bottom" id="7HB-OL-QTP"/>
+                            <constraint firstAttribute="trailing" secondItem="2EJ-kO-HiJ" secondAttribute="trailing" id="EP9-eI-T83"/>
+                            <constraint firstItem="6AF-d0-Mmq" firstAttribute="trailing" secondItem="2EJ-kO-HiJ" secondAttribute="trailing" id="Z2F-zB-f6P"/>
+                            <constraint firstItem="6AF-d0-Mmq" firstAttribute="leading" secondItem="2EJ-kO-HiJ" secondAttribute="leading" id="qPE-Kl-sjd"/>
+                            <constraint firstItem="2EJ-kO-HiJ" firstAttribute="bottom" secondItem="2yB-qj-WfP" secondAttribute="top" id="r3X-Rn-17v"/>
+                            <constraint firstItem="2EJ-kO-HiJ" firstAttribute="leading" secondItem="4ct-K9-G03" secondAttribute="leading" id="r4F-bV-sGD"/>
+                            <constraint firstItem="6AF-d0-Mmq" firstAttribute="top" secondItem="luh-FR-G69" secondAttribute="bottom" id="xGo-Ao-VWM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="2EJ-kO-HiJ" id="Ird-SW-5eC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vix-hK-mEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="77.599999999999994" y="703.89805097451278"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="bhz-dQ-J5v">
@@ -238,7 +287,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D0w-99-adU">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D0w-99-adU">
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -267,6 +316,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="h4B-n4-5E6" id="Zdt-3f-XiI"/>
+                        <outlet property="url" destination="D0w-99-adU" id="cmK-8q-MkZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwJ-Ig-21N" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -303,7 +353,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDN-jj-4ep" id="FtW-27-VHx">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

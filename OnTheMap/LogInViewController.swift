@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
@@ -16,7 +17,6 @@ class LoginViewController: UIViewController {
     var fN: String!
     var accountKey: String = ""
     /*need to change to fasle later*/
-    var reg: Bool  = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,10 @@ class LoginViewController: UIViewController {
             performUIUpdateOnMain {
                 if success{
                     self.completeLogin()
-                } else {
-                    print("error")
+                } else{
+                    let alertController = UIAlertController(title: "Invalid Login", message: "Enter your username or password again. Or click to regesiter if you don't have an account", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
                 }
             }
         }
@@ -43,15 +45,23 @@ class LoginViewController: UIViewController {
     
     private func completeLogin(){
         performUIUpdateOnMain {
-            if self.reg{
+            if userData.userStat{
                 let control = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
                 self.present(control, animated: true, completion: nil)
+            } else{
+                let alertController = UIAlertController(title: "Invalid Login", message: "Enter your username or password again. Or click to regesiter if you don't have an account", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
             }
             
         }
 
     }
     
+    @IBAction func signUp(_ sender: AnyObject) {
+        let control = storyboard?.instantiateViewController(withIdentifier: "SignUpViewController")
+        present(control!, animated: true, completion: nil)
+    }
        
         
     

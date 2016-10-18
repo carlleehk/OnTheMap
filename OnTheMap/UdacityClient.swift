@@ -10,15 +10,13 @@ import Foundation
 
 class UdacityClient: NSObject{
     
-    var sessionIDs: String = ""
-    var accountKeys: String = ""
     var session = URLSession.shared
     
     override init() {
         super.init()
     }
     
-    func taskForPostMethod(username: String, password: String, method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+    func taskForPostMethod(username: String, password: String, method: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
         let request = NSMutableURLRequest(url: udacityURL(withPathExtension: method) as URL)
         request.httpMethod = "POST"
@@ -27,18 +25,25 @@ class UdacityClient: NSObject{
         request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+
+            
             guard (error == nil) else{
-                print("There was an error in your request: \(error)")
+                sendError(error: "There was an error with your request: \(error)")
                 return
             }
             
             guard let statcode = (response as? HTTPURLResponse)?.statusCode, statcode >= 200 && statcode <= 299 else{
-                print("Your request returned a status code other than 2XX. ")
+                sendError(error: "Your request returned a status code other than 2XX.")
                 return
             }
             
             guard let data = data else{
-                print("No data was returned by the request")
+                sendError(error: "No data was returned by the request")
                 return
             }
            
@@ -48,27 +53,34 @@ class UdacityClient: NSObject{
         return task
     }
     
-    func taskForGetMethod(method: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+    func taskForGetMethod(method: String, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
         let request = NSMutableURLRequest(url: udacityURL(withPathExtension: method) as URL)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+
+            
         guard (error == nil) else{
-            print("There was an error in your request: \(error)")
+            sendError(error: "There was an error in your request: \(error)")
             return
         }
         
         guard let statcode = (response as? HTTPURLResponse)?.statusCode, statcode >= 200 && statcode <= 299 else{
-            print("Your request returned a status code other than 2XX.")
+            sendError(error: "Your request returned a status code other than 2XX.")
             return
         }
         
         guard let data = data else{
-            print("No data was returned by the request")
+            sendError(error: "No data was returned by the request")
             return
         }
         
-        self.convertDataWithCompletionHandler(data: data, completionHandlerForConverData: completionHandlerForPOST)
+        self.convertDataWithCompletionHandler(data: data, completionHandlerForConverData: completionHandlerForGET)
     }
         task.resume()
         return task
@@ -100,7 +112,8 @@ class UdacityClient: NSObject{
         components.scheme = UdacityClient.Constant.ApiScheme
         components.host = UdacityClient.Constant.ApiHost
         components.path = UdacityClient.Constant.ApiPath + (withPathExtension ?? "")
-        
+        print(components)
+        print(components.url)
         return components.url! as NSURL
         
     }

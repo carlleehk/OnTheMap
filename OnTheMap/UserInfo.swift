@@ -7,10 +7,12 @@
 //
 
 struct userData {
-    let userFirstName: String
-    let userLastName: String
-    let userURL: String?
-    static var userInfo: [userData] = []
+    static var userFirstName: String = ""
+    static var userLastName: String = ""
+    static var userID: String = ""
+    static var userStat: Bool = false
+    
+    /*static var userInfo: [userData] = []
     
     init(dictionary: [String:Any]) {
         userFirstName = dictionary["first_name"] as! String
@@ -26,5 +28,5 @@ struct userData {
         }
         return data
     }
-    
+    */
 }

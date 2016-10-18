@@ -13,8 +13,17 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
     @IBOutlet weak var map: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let datas = userData.userInfo[0]
-        print(datas.userURL?.description)
+        
+        ParseClient.sharedInstance().getStudentsData { (data, error) in
+            performUIUpdateOnMain {
+                if error == nil{
+                    print("the data is: \(selectUserInfo.selectuserInfo)")
+                } else{
+                    print("there is an error")
+                }
+
+            }
+        }
         
         let locations = locationData()
         var annotations = [MKPointAnnotation]()
