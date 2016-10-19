@@ -202,7 +202,11 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="fjb-eX-PMI"/>
-                            <barButtonItem image="pin" id="O1j-SG-MbU"/>
+                            <barButtonItem image="pin" id="O1j-SG-MbU">
+                                <connections>
+                                    <action selector="findLocation:" destination="0qt-Jl-eMH" id="hls-NF-F4V"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -264,7 +268,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="location" destination="hUJ-pw-zrP" id="GIh-t1-jsc"/>
+                        <outlet property="location" destination="hUJ-pw-zrP" id="wvh-tM-s6W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHx-B3-BLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -311,8 +315,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="h4B-n4-5E6" id="Zdt-3f-XiI"/>
-                        <outlet property="url" destination="D0w-99-adU" id="cmK-8q-MkZ"/>
+                        <outlet property="mapview" destination="h4B-n4-5E6" id="dvz-vK-0re"/>
+                        <outlet property="url" destination="D0w-99-adU" id="cg8-8Z-niD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwJ-Ig-21N" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -349,7 +353,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDN-jj-4ep" id="FtW-27-VHx">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

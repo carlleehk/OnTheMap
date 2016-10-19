@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 class URLViewController: UIViewController {
 
+    @IBOutlet weak var url: UITextField!
+    @IBOutlet weak var mapview: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(individualInfo.location)
+        print(individualInfo.locationLong)
 
         // Do any additional setup after loading the view.
     }
