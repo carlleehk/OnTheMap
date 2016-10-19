@@ -36,12 +36,14 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
             let geocoder = CLGeocoder()
             geocoder.geocodeAddressString(location.text!) { (placemarks, error) in
                 
-                if (placemarks?.count)! > 0 {
-                    let placemark = placemarks![0] as CLPlacemark
+                if let placemarks = placemarks {
+                    if placemarks.count > 0{
+                    let placemark = placemarks[0] as CLPlacemark
                     let location = placemark.location?.coordinate
                     individualInfo.locationLat = location?.latitude
                     individualInfo.locationLong = location?.longitude
-                } else {
+                }
+                }else {
                     let alertController = UIAlertController(title: "Error", message: "Please Enter A Valid Location. It may be in the form of City, State", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alertController, animated: true, completion: nil)
