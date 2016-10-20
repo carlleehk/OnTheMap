@@ -26,6 +26,7 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
                 info["longitude"] = datas.longitude
                 info["mapString"] = datas.mapString
                 info["mediaURL"] = datas.mediaURL
+                info["objectId"] = datas.objectId
                 infos += [info]
                 
             }
@@ -64,8 +65,49 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
                 }
             //}
             }
+        
+        ParseClient.sharedInstance().getIndividualData { (data, error) in
+            if error == nil && data?.count != 0{
+                
+                let locations = locationData()
+                print("the data is: \(data?.count)")
+                var annotations = [MKPointAnnotation]()
+                for dictionary in locations {
+                    print("The info is \(dictionary)")
+                    individualInfo.objectID = dictionary["objectId"] as! String
+                    print("....?: \(individualInfo.objectID)")
+                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
+                    let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    let first = dictionary["firstName"] as! String
+                    let last = dictionary["lastName"] as! String
+                    let mediaURL = dictionary["mediaURL"] as! String
+                    let annotation = MKPointAnnotation()
+                    let viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 5000000, 5000000)
+                    self.map.setRegion(viewRegion, animated: true)
+                    annotation.coordinate = coordinate
+                    annotation.title = "\(first) \(last)"
+                    annotation.subtitle = mediaURL
+                    annotations.append(annotation)
+                }
+                
+                self.map.addAnnotations(annotations)
+                
+                
+                
+            } else{
+                
+                print("there is an error")
+                let control = self.storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
+                self.present(control, animated: true, completion: nil)
+                
+            }
         }
         
+        }
+    
+    
+    
         /*let locations = locationData()
         var annotations = [MKPointAnnotation]()
         for dictionary in locations {
@@ -178,9 +220,18 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
     }*/
 
     @IBAction func findLocation(_ sender: AnyObject) {
-        let control = storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
-        present(control, animated: true, completion: nil)
         
+        individualInfo.haveData = true
+        let alertController = UIAlertController(title: "Attention", message: "There is already a user location data, do you want to overwrite it?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            
+            individualInfo.haveData = true
+            let control = self.storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
+            self.present(control, animated: true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation

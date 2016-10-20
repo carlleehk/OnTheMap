@@ -7,14 +7,17 @@
 //
 
 struct individualInfo{
+    static var haveData: Bool = false
     static var location: String? = ""
     static var locationLong: Double? = nil
     static var locationLat: Double? = nil
     static var userURL: String? = ""
+    static var objectID: String = ""
 
 }
 
 struct selectUserInfo{
+    
     
     var firstName: String
     var lastName: String
@@ -22,6 +25,7 @@ struct selectUserInfo{
     var longitude: Double
     var mapString: String
     var mediaURL: String
+    var objectId: String
     
     static var selectuserInfo: [selectUserInfo] = []
     
@@ -32,6 +36,8 @@ struct selectUserInfo{
         longitude = dictionary["longitude"] as! Double
         mapString = dictionary["mapString"] as! String
         mediaURL = dictionary["mediaURL"] as! String
+        objectId = dictionary["objectId"] as! String
+        
     }
     
     static func selectUserInfos(results:[[String: Any]]) -> [selectUserInfo]{

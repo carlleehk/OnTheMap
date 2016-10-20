@@ -45,10 +45,43 @@ class URLViewController: UIViewController, UITextFieldDelegate{
         } else {
             individualInfo.userURL = url.text
             textField.resignFirstResponder()
-            let control = storyboard?.instantiateViewController(withIdentifier: "TabBar")
-            present(control!, animated: true, completion: nil)
+            if individualInfo.haveData{
+                ParseClient.sharedInstance().renewStudentLocation(completionHandlerForPut: { (info, error) in
+                    if error == nil{
+                        print("something")
+                        let control = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+                        self.present(control!, animated: true, completion: nil)
+                        
+                    } else{
+                        print("there is an error")
+                        return
+                    }
+
+                })
+            }else{
+                
+                ParseClient.sharedInstance().postNewStudent(completionHandlerForPostStudentsData: { (info, error) in
+                    
+                    
+                        if error == nil{
+                            print("something")
+                            let control = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+                            self.present(control!, animated: true, completion: nil)
+                            
+                        } else{
+                            print("there is an error")
+                            return
+                        }
+
+                    
+                })
+            }
+           
         }
+        
+       
         return true
+        
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {

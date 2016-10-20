@@ -11,7 +11,7 @@ extension ParseClient{
        
         static let httpHeaderID = "X-Parse-Application-Id"
         static let httpHeaderAPI = "X-Parse-REST-API-Key"
-        static let ApiKey: String = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let ApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         static let AppicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let ApiScheme = "https"
         static let ApiHost = "parse.udacity.com"
