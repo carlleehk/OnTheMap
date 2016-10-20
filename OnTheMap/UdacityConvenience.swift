@@ -81,6 +81,23 @@ extension UdacityClient{
         }
     }
     
+    func deleteSession(completionHandlerForDelete: @escaping (_ success: Bool, _ errorString: String?) -> Void){
+        taskForDeleteMethod(method: Methods.session) { (result, error) in
+            if let error = error{
+                print(error)
+                completionHandlerForDelete(false, "Error Deleing Session")
+            } else{
+                guard let data = result!["session"] as? [String: AnyObject] else{
+                    print(error)
+                    return
+                }
+                
+                print(data)
+                completionHandlerForDelete(true, nil)
+            }
+        }
+    }
+    
 }
 
 

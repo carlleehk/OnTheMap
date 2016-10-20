@@ -12,6 +12,7 @@
 		7A3A2ACA1DB53F1600897C35 /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A2AC91DB53F1600897C35 /* ParseConstants.swift */; };
 		7A5A90241DB583A20046140C /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A90231DB583A20046140C /* ParseConvenience.swift */; };
 		7A7099C41D9F228C002FD4E5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7099C31D9F228C002FD4E5 /* UserInfo.swift */; };
+		7A72BD8F1DB916B60096AA3B /* DataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72BD8E1DB916B60096AA3B /* DataTableViewController.swift */; };
 		7A818E5E1DB1A0B900F3E0D2 /* URLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A818E5D1DB1A0B900F3E0D2 /* URLViewController.swift */; };
 		7AB67AA31D9DFEAB00769B9F /* OnTheMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB67AA21D9DFEAB00769B9F /* OnTheMapViewController.swift */; };
 		7ABE205D1DB2E22400580AE5 /* ParseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE205C1DB2E22400580AE5 /* ParseData.swift */; };
@@ -33,6 +34,7 @@
 		7A3A2AC91DB53F1600897C35 /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
 		7A5A90231DB583A20046140C /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		7A7099C31D9F228C002FD4E5 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		7A72BD8E1DB916B60096AA3B /* DataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableViewController.swift; sourceTree = "<group>"; };
 		7A818E5D1DB1A0B900F3E0D2 /* URLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLViewController.swift; sourceTree = "<group>"; };
 		7AB67AA21D9DFEAB00769B9F /* OnTheMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapViewController.swift; sourceTree = "<group>"; };
 		7ABE205C1DB2E22400580AE5 /* ParseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseData.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				7AD930F01DB1873900A0EC93 /* LocationViewController.swift */,
 				7A818E5D1DB1A0B900F3E0D2 /* URLViewController.swift */,
 				7A2F4E741DB52827003C0D9C /* SignUpViewController.swift */,
+				7A72BD8E1DB916B60096AA3B /* DataTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				7A2F4E751DB52827003C0D9C /* SignUpViewController.swift in Sources */,
 				7A818E5E1DB1A0B900F3E0D2 /* URLViewController.swift in Sources */,
 				7ABE205D1DB2E22400580AE5 /* ParseData.swift in Sources */,
+				7A72BD8F1DB916B60096AA3B /* DataTableViewController.swift in Sources */,
 				7AD930F11DB1873900A0EC93 /* LocationViewController.swift in Sources */,
 				7A5A90241DB583A20046140C /* ParseConvenience.swift in Sources */,
 				7A7099C41D9F228C002FD4E5 /* UserInfo.swift in Sources */,

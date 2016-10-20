@@ -13,22 +13,15 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
-    var sessionID: String = ""
+    /*var sessionID: String = ""
     var fN: String!
-    var accountKey: String = ""
-    /*need to change to fasle later*/
-    
+    var accountKey: String = ""*/
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     @IBAction func login(_ sender: AnyObject) {
         UdacityClient.sharedInstance().authenticateViewController(username: username.text!, password: password.text!, hostViewController: self) { (success, errorString) in
             performUIUpdateOnMain {
@@ -59,12 +52,10 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signUp(_ sender: AnyObject) {
+
         let control = storyboard?.instantiateViewController(withIdentifier: "SignUpViewController")
         present(control!, animated: true, completion: nil)
     }
-       
-        
-    
 
 }
 

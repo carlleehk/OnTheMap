@@ -29,6 +29,8 @@ struct selectUserInfo{
     
     static var selectuserInfo: [selectUserInfo] = []
     
+    static var userInfoDictionary: [[String: Any]] = []
+    
     init(dictionary: [String:Any]){
         firstName = dictionary["firstName"] as! String
         lastName = dictionary["lastName"] as! String

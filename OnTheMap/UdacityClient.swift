@@ -86,7 +86,54 @@ class UdacityClient: NSObject{
         return task
 
     }
+    
+    func taskForDeleteMethod(method: String, completionHandlerForDelete: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+        
+        let request = NSMutableURLRequest(url: udacityURL(withPathExtension: method) as URL)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForDelete(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+            
+            
+            guard (error == nil) else{
+                sendError(error: "There was an error in your request: \(error)")
+                return
+            }
+            
+            guard let statcode = (response as? HTTPURLResponse)?.statusCode, statcode >= 200 && statcode <= 299 else{
+                sendError(error: "Your request returned a status code other than 2XX.")
+                return
+            }
+            
+            guard let data = data else{
+                sendError(error: "No data was returned by the request")
+                return
+            }
+            
+           self.convertDataWithCompletionHandler(data: data, completionHandlerForConverData: completionHandlerForDelete) 
+            
+        }
+        
+        task.resume()
+        return task
 
+        
+    }
+    
     func convertDataWithCompletionHandler(data: Data, completionHandlerForConverData: (_ result:AnyObject?, _ error: NSError?) -> Void){
         
         let dataLength = data.count
