@@ -23,12 +23,12 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func login(_ sender: AnyObject) {
-        UdacityClient.sharedInstance().authenticateViewController(username: username.text!, password: password.text!, hostViewController: self) { (success, errorString) in
+        UdacityClient.sharedInstance().authenticateViewController(username: username.text!, password: password.text!, hostViewController: self) { (success, error) in
             performUIUpdateOnMain {
                 if success{
                     self.completeLogin()
                 } else{
-                    let alertController = UIAlertController(title: "Invalid Login", message: "Enter your username or password again. Or click to regesiter if you don't have an account", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Invalid Login", message: error?.localizedDescription, preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alertController, animated: true, completion: nil)
                 }

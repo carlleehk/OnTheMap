@@ -15,6 +15,8 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        map.delegate = self
+        
         func locationData() -> [[String: Any]]{
             var info: [String:Any]  = [:]
             var infos = [info]
@@ -33,36 +35,6 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
             print("thee inf: \(infos)")
             return infos
         }
-
-        ParseClient.sharedInstance().getStudentsData { (data, error) in
-                if error == nil{
-                    
-                    let locations = locationData()
-                    selectUserInfo.userInfoDictionary = locations
-                    print("the data is: \(locations)")
-                    var annotations = [MKPointAnnotation]()
-                    for dictionary in locations {
-                        let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-                        let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-                        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                        let first = dictionary["firstName"] as! String
-                        let last = dictionary["lastName"] as! String
-                        let mediaURL = dictionary["mediaURL"] as! String
-                        let annotation = MKPointAnnotation()
-                        annotation.coordinate = coordinate
-                        annotation.title = "\(first) \(last)"
-                        annotation.subtitle = mediaURL
-                        annotations.append(annotation)
-                    }
-                    
-                    self.map.addAnnotations(annotations)
-                    
-                    
-                    
-                } else{
-                    print("there is an error")
-                }
-            }
         
         ParseClient.sharedInstance().getIndividualData { (data, error) in
             if error == nil && data?.count != 0{
@@ -76,8 +48,14 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
                     print("The info is \(dictionary)")
                     individualInfo.objectID = dictionary["objectId"] as! String
                     print("....?: \(individualInfo.objectID)")
-                    let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-                    let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+                    
+                    guard let lat = dictionary["latitude"] as? Double, let long = dictionary["longitude"] as? Double else{
+                        print("No Location Data")
+                        self.viewDidLoad()
+                        return
+                    }
+                    //let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
+                    //let long = CLLocationDegrees(dictionary["longitude"] as! Double)
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let first = dictionary["firstName"] as! String
                     let last = dictionary["lastName"] as! String
@@ -95,16 +73,59 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
                 
                 
                 
-            } else{
-                
-                print("there is an error")
+            } else if (error != nil){
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }else{
                 let control = self.storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
                 self.present(control, animated: true, completion: nil)
-                
             }
+            
+         
         }
         
-        }
+
+
+        ParseClient.sharedInstance().getStudentsData { (data, error) in
+                if error == nil{
+                    
+                    let locations = locationData()
+                    selectUserInfo.userInfoDictionary = locations
+                    print("the data is: \(locations)")
+                    var annotations = [MKPointAnnotation]()
+                    for dictionary in locations {
+                        guard let lat = dictionary["latitude"] as? Double, let long = dictionary["longitude"] as? Double else{
+                            
+                            print("No Location Data")
+                            self.viewDidLoad()
+                            return
+                        }
+                        //let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
+                        //let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+                        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                        let first = dictionary["firstName"] as! String
+                        let last = dictionary["lastName"] as! String
+                        let mediaURL = dictionary["mediaURL"] as! String
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = coordinate
+                        annotation.title = "\(first) \(last)"
+                        annotation.subtitle = mediaURL
+                        annotations.append(annotation)
+                    }
+                    
+                    self.map.addAnnotations(annotations)
+                    
+                    
+                    
+                } else{
+                   let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        
+                }
     
     @IBAction func logout(_ sender: AnyObject) {
         
@@ -138,13 +159,12 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.rightCalloutAccessoryView{
+        if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
-            if let toOpen = view.annotation?.subtitle!{
-                app.open(NSURL(string: toOpen)! as URL, options: [:], completionHandler: nil)
+            if let toOpen = view.annotation?.subtitle! {
+                app.openURL(NSURL(string: toOpen)! as URL)
             }
         }
-
     }
     
     @IBAction func refresh(_ sender: AnyObject) {

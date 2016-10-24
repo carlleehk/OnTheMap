@@ -13,14 +13,14 @@ extension ParseClient{
     
     func getStudentsData(completionHandlerForGetStudentsData:@escaping (_ result:[selectUserInfo]?, _ error:NSError?) -> Void){
         
-        let random = arc4random_uniform(1400)
-        let parameters = [ParameterKeys.limit: "99", ParameterKeys.skip: "\(random)"]
+        let random = arc4random_uniform(1200)
+        let parameters = [ParameterKeys.limit: "100", ParameterKeys.skip: "\(random)", "order": "-updatedAt"]
         taskForGetMethod(parameters: parameters as [String : AnyObject]) { (results, error) in
             if let error = error{
                 completionHandlerForGetStudentsData(nil, error)
             } else {
                 guard let info = results?["results"]! as? [[String: Any]] else{
-                    print("the error is: \(error)")
+                    print(error?.localizedDescription)
                     return
                 }
                 
@@ -40,7 +40,7 @@ extension ParseClient{
                 completionHandlerForGetStudentsData(nil, error)
             } else {
                 guard let info = results?["results"]! as? [[String: Any]] else{
-                    print("the error is: \(error)")
+                    print(error?.localizedDescription)
                     return
                 }
                 
@@ -62,7 +62,7 @@ extension ParseClient{
                 completionHandlerForPostStudentsData(nil, error)
             } else {
                 guard let info = results?["objectId"]! as? String else{
-                    print("the error is: \(error)")
+                    print(error?.localizedDescription)
                     return
                 }
                 
@@ -86,7 +86,7 @@ extension ParseClient{
                 completionHandlerForPut(nil, error)
             } else {
                 guard let info = result?["updatedAt"]! as? String else{
-                    print("the error is: \(error)")
+                    print(error?.localizedDescription)
                     return
                 }
                 

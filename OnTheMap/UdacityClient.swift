@@ -33,12 +33,12 @@ class UdacityClient: NSObject{
 
             
             guard (error == nil) else{
-                sendError(error: "There was an error with your request: \(error)")
+                sendError(error: (error?.localizedDescription)!)
                 return
             }
             
             guard let statcode = (response as? HTTPURLResponse)?.statusCode, statcode >= 200 && statcode <= 299 else{
-                sendError(error: "Your request returned a status code other than 2XX.")
+                sendError(error: "The login credential is invalid, try again!")
                 return
             }
             
@@ -66,7 +66,7 @@ class UdacityClient: NSObject{
 
             
         guard (error == nil) else{
-            sendError(error: "There was an error in your request: \(error)")
+            sendError(error: (error?.localizedDescription)!)
             return
         }
         
@@ -110,7 +110,7 @@ class UdacityClient: NSObject{
             
             
             guard (error == nil) else{
-                sendError(error: "There was an error in your request: \(error)")
+                sendError(error: (error?.localizedDescription)!)
                 return
             }
             

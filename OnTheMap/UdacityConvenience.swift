@@ -11,28 +11,28 @@ import UIKit
 
 extension UdacityClient{
     
-    func authenticateViewController(username: String, password: String, hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void){
-        getSessionID(username: username, password: password){(success, sessionID, errorString) in
+    func authenticateViewController(username: String, password: String, hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+        getSessionID(username: username, password: password){(success, sessionID, error) in
             if success{
                 self.getUserData(completionHandlerForID: { (success, userData, String) in
                     if success{
-                        completionHandlerForAuth(success, errorString)
+                        completionHandlerForAuth(success, error)
                     }else {
-                        completionHandlerForAuth(success, errorString!)
+                        completionHandlerForAuth(success, error!)
                     }
                 })
             } else {
-                completionHandlerForAuth(success, errorString!)
+                completionHandlerForAuth(success, error!)
             }
         }
     }
     
-    private func getSessionID(username: String, password: String, completionHandlerForID: @escaping (_ success: Bool, _ sessionID: String?, _ error: String?) -> Void){
+    private func getSessionID(username: String, password: String, completionHandlerForID: @escaping (_ success: Bool, _ sessionID: String?, _ error: NSError?) -> Void){
         //let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
         taskForPostMethod(username: username, password: password, method: Methods.session) { (result, error) in
             if let error = error {
                 print(error)
-                completionHandlerForID(false, nil, "Login Failed (session ID)")
+                completionHandlerForID(false, nil, error)
             } else {
                 if let jsonAccount = result!["account"] as? [String: AnyObject] {
                     if let regesited = jsonAccount["registered"] as? Bool, let userID = jsonAccount["key"] as? String {
@@ -41,25 +41,25 @@ extension UdacityClient{
                         completionHandlerForID(true, userID, nil)
                     } else{
                         print(error)
-                        completionHandlerForID(false, nil, "Login Failed")
+                        completionHandlerForID(false, nil, error)
                     }
                 }else{
                     print(error)
-                    completionHandlerForID(false, nil, "Login Failed")
+                    completionHandlerForID(false, nil, error)
                 }
             }
         }
     }
     
     
-    private func getUserData(completionHandlerForID: @escaping (_ success: Bool, _ userData: [String: AnyObject]?, _ error: String?) -> Void){
+    private func getUserData(completionHandlerForID: @escaping (_ success: Bool, _ userData: [String: AnyObject]?, _ error: NSError?) -> Void){
         
         var mutableMethod: String = Methods.users
         mutableMethod = subsituteForKey(method: mutableMethod, key: "userID", value: userData.userID)!
         taskForGetMethod(method: mutableMethod) { (result, error) in
             if let error = error{
                 print(error)
-                completionHandlerForID(false, nil, "Login Failed (user Data)")
+                completionHandlerForID(false, nil, error)
             } else {
                 guard let user = result!["user"] as? [String: AnyObject] else{
                     print(error)
@@ -81,11 +81,11 @@ extension UdacityClient{
         }
     }
     
-    func deleteSession(completionHandlerForDelete: @escaping (_ success: Bool, _ errorString: String?) -> Void){
+    func deleteSession(completionHandlerForDelete: @escaping (_ success: Bool, _ error: NSError?) -> Void){
         taskForDeleteMethod(method: Methods.session) { (result, error) in
             if let error = error{
                 print(error)
-                completionHandlerForDelete(false, "Error Deleing Session")
+                completionHandlerForDelete(false, error)
             } else{
                 guard let data = result!["session"] as? [String: AnyObject] else{
                     print(error)

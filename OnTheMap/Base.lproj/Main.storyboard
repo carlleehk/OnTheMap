@@ -26,10 +26,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="carllee.hk@gmail.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOS-xy-WOM">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOS-xy-WOM">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OpG-UQ-nam">
                                 <nil key="textColor"/>
@@ -54,11 +54,6 @@
                                     <action selector="signUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xHT-i9-6gS"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="MOH-wF-DlO">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="UL1-2K-KZI"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -69,11 +64,8 @@
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="15" id="Ojq-qx-BgG"/>
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="trailing" secondItem="u8H-CE-4If" secondAttribute="trailing" id="Rna-SJ-gaT"/>
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="leading" secondItem="OpG-UQ-nam" secondAttribute="leading" id="Rz3-9A-o6p"/>
-                            <constraint firstItem="yoq-Mh-HZH" firstAttribute="trailing" secondItem="MOH-wF-DlO" secondAttribute="trailing" id="Zr1-su-lTk"/>
-                            <constraint firstItem="MOH-wF-DlO" firstAttribute="top" secondItem="jDv-f4-Pnk" secondAttribute="bottom" constant="8" symbolic="YES" id="bVb-hX-QE3"/>
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="trailing" secondItem="xR1-No-9Du" secondAttribute="trailing" id="chn-2P-Ioy"/>
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="trailing" secondItem="VOS-xy-WOM" secondAttribute="trailing" id="gmI-e0-ctL"/>
-                            <constraint firstItem="yoq-Mh-HZH" firstAttribute="leading" secondItem="MOH-wF-DlO" secondAttribute="leading" id="hP8-5i-9IP"/>
                             <constraint firstItem="OpG-UQ-nam" firstAttribute="top" secondItem="VOS-xy-WOM" secondAttribute="bottom" constant="8" symbolic="YES" id="iXa-4E-p1G"/>
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="leading" secondItem="VOS-xy-WOM" secondAttribute="leading" id="lBw-1O-4Qq"/>
                             <constraint firstItem="yoq-Mh-HZH" firstAttribute="leading" secondItem="xR1-No-9Du" secondAttribute="leading" id="oZe-wL-tfa"/>
@@ -272,6 +264,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="findOnTheMap" destination="UIm-rW-NZ0" id="781-cb-902"/>
                         <outlet property="location" destination="hUJ-pw-zrP" id="wvh-tM-s6W"/>
                     </connections>
                 </viewController>
@@ -353,7 +346,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mapInfo" textLabel="XYt-m1-MC3" imageView="Juk-Ve-xc4" style="IBUITableViewCellStyleDefault" id="GDN-jj-4ep">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mapInfo" textLabel="XYt-m1-MC3" detailTextLabel="216-kF-qMf" imageView="Juk-Ve-xc4" style="IBUITableViewCellStyleSubtitle" id="GDN-jj-4ep">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDN-jj-4ep" id="FtW-27-VHx">
@@ -361,7 +354,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XYt-m1-MC3">
-                                            <frame key="frameInset" minX="52" width="308" height="43"/>
+                                            <frame key="frameInset" minX="52" minY="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -371,6 +364,13 @@
                                             <frame key="frameInset" minX="15" minY="10" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="216-kF-qMf">
+                                            <frame key="frameInset" minX="52" minY="25" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -381,10 +381,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="On The Map" id="2bW-rn-3M9">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="tG2-jR-yYn"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="tG2-jR-yYn">
+                            <connections>
+                                <action selector="logout:" destination="MBp-0c-WeU" id="E1l-tZ-Euc"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="gf0-hx-DKY"/>
-                            <barButtonItem image="pin" id="SHN-rV-wha"/>
+                            <barButtonItem image="pin" id="SHN-rV-wha">
+                                <connections>
+                                    <action selector="getLocation:" destination="MBp-0c-WeU" id="xJQ-4o-vjW"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
@@ -411,7 +419,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="facebook" width="525" height="96"/>
         <image name="list" width="22" height="22"/>
         <image name="map" width="22" height="22"/>
         <image name="pin" width="22" height="22"/>

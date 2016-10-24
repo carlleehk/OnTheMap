@@ -24,13 +24,13 @@ class ParseClient: NSObject{
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(error: String) {
-                print(error)
+                print("the error is: \(error)")
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else{
-                sendError(error: "There was an error in your request: \(error)")
+                sendError(error: (error?.localizedDescription)!)
                 return
             }
             
@@ -63,19 +63,19 @@ class ParseClient: NSObject{
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(error: String) {
-                print(error)
+                print("the error is: \(error)")
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForPOST(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
             }
             
             
             guard (error == nil) else{
-                sendError(error: "There was an error with your request: \(error)")
+                sendError(error: (error?.localizedDescription)!)
                 return
             }
             
             guard let statcode = (response as? HTTPURLResponse)?.statusCode, statcode >= 200 && statcode <= 299 else{
-                sendError(error: "Your request returned a status code other than 2XX. \(response)")
+                sendError(error: "Your request returned a status code other than 2XX.")
                 return
             }
             
@@ -101,14 +101,14 @@ class ParseClient: NSObject{
         
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             func sendError(error: String) {
-                print(error)
+                print("the error is: \(error)")
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForPUT(nil, NSError(domain: "taskForPUTMethod", code: 1, userInfo: userInfo))
             }
             
             
             guard (error == nil) else{
-                sendError(error: "There was an error in your request: \(error)")
+                sendError(error: (error?.localizedDescription)!)
                 return
             }
             
