@@ -63,8 +63,7 @@ class DataTableViewController: UITableViewController {
         UdacityClient.sharedInstance().deleteSession { (success, errorString) in
             if success{
                 print("Sucessfully delete Session")
-                let control = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                self.present(control, animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             } else{
                 print(errorString)
             }

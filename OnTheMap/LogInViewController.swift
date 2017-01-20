@@ -9,25 +9,34 @@
 import UIKit
 
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
-    /*var sessionID: String = ""
-    var fN: String!
-    var accountKey: String = ""*/
+    
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        username.delegate = self
+        password.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
     }
+    
+
 
     @IBAction func login(_ sender: AnyObject) {
         UdacityClient.sharedInstance().authenticateViewController(username: username.text!, password: password.text!, hostViewController: self) { (success, error) in
+            
             performUIUpdateOnMain {
+                
                 if success{
+                    
                     self.completeLogin()
                 } else{
+                    
                     let alertController = UIAlertController(title: "Invalid Login", message: error?.localizedDescription, preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alertController, animated: true, completion: nil)
@@ -56,6 +65,43 @@ class LoginViewController: UIViewController {
         let control = storyboard?.instantiateViewController(withIdentifier: "SignUpViewController")
         present(control!, animated: true, completion: nil)
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat{
+        
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    func keyboardWillShow(notification: NSNotification){
+        self.view.frame.origin.y = getKeyboardHeight(notification: notification) * -1
+    }
+    
+    func keyboardWillHide(notification: NSNotification){
+        self.view.frame.origin.y = 0
+    }
+    
+    /*func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }*/
 
 }
 

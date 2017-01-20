@@ -27,7 +27,8 @@ class URLViewController: UIViewController, UITextFieldDelegate{
     }
 
     @IBAction func cancel(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)
+        //let control = storyboard?.instantiateViewController(withIdentifier: "TabBar")
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -42,11 +43,13 @@ class URLViewController: UIViewController, UITextFieldDelegate{
                 ParseClient.sharedInstance().renewStudentLocation(completionHandlerForPut: { (info, error) in
                     if error == nil{
                         print("something")
-                        let control = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
-                        self.present(control!, animated: true, completion: nil)
+                        //let control = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
+                         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                         
                     } else{
-                        print("there is an error")
+                        let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
                         return
                     }
 
@@ -57,12 +60,13 @@ class URLViewController: UIViewController, UITextFieldDelegate{
                     
                     
                         if error == nil{
-                            print("something")
                             let control = self.storyboard?.instantiateViewController(withIdentifier: "TabBar")
                             self.present(control!, animated: true, completion: nil)
                             
                         } else{
-                            print("there is an error")
+                            let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            self.present(alertController, animated: true, completion: nil)
                             return
                         }
 
@@ -95,5 +99,7 @@ class URLViewController: UIViewController, UITextFieldDelegate{
         
         return pinView
     }
+    
+    
 
 }

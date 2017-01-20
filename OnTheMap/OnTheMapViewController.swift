@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
+    
     @IBOutlet weak var map: MKMapView!
     
     override func viewDidLoad() {
@@ -132,8 +133,10 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
         UdacityClient.sharedInstance().deleteSession { (success, errorString) in
             if success{
                 print("Sucessfully delete Session")
-                let control = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                self.present(control, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
             } else{
                 print(errorString)
             }
@@ -185,5 +188,6 @@ class OnTheMapViewController: UIViewController,  MKMapViewDelegate{
         alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
+    
 }
