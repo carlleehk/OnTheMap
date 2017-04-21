@@ -1,6 +1,4 @@
-# OnTheMap
 # On The Map
-
 The On The Map is result of **iOS Networking with Swift** lesson of **Udacity's iOS Developer Nanodegree** course.
 
 The On The Map app allows udacity students to posts user-generated location information to a shared map, pulling the locations of fellow Nanodegree students, with custom messages about themselves or their learning experience.
