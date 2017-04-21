@@ -5,7 +5,7 @@ The On The Map app allows udacity students to posts user-generated location info
 
 ## Implementation
 
-The app has four view controller scenes:
+The app has five view controller scenes:
 
 - **LoginController** - allows the user to log in using their Udacity credentials. 
   
@@ -13,17 +13,21 @@ The app has four view controller scenes:
   
   If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
 
-- **MapController** - displays a map with pins specifying the last 100 locations posted by students. 
+- **OnTheMapController** - displays a map with pins specifying the last 100 locations posted by students. 
   
   When the user taps a pin, it displays the pin annotation popup, with the student’s name (pulled from their Udacity profile) and the link associated with the student’s pin.
   
   Tapping anywhere within the annotation will launch Safari and direct it to the link associated with the pin.
 
-- **ListController** - displays the most recent 100 locations posted by students in a table. Each row displays the name from the student’s Udacity profile. Tapping on the row launches Safari and opens the link associated with the student.
+- **DataTableController** - displays the most recent 100 locations posted by students in a table. Each row displays the name from the student’s Udacity profile. Tapping on the row launches Safari and opens the link associated with the student.
 
-- **PinController** - allows users to input data in two steps: first adding their location string, then their link.
+- **LocationController** - allows users to input location string
   
   When the user clicks on the “Find on the Map” button, the app will forward geocode the string. If the forward geocode fails, the app will display an alert view notifying the user.
+
+- **LocationController** - allows users to input url string
+  
+  
 
 ## Requirements
 
